@@ -1,0 +1,12 @@
+#coding: utf-8
+
+require 'boot'
+
+Boot.configure do |c|
+  c.user     = 'username of gerrit'
+  c.host     = 'gerrit.example.com'
+  c.port     = '29418'
+  c.project  = 'project name'
+  c.branches = /^RegExp For Filtering/
+  c.room     = 'Skype Room Topic Name'
+end
