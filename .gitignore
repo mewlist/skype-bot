@@ -2,3 +2,4 @@ config/config.rb
 
 .ruby-version
 .DS_Store
+.skype_bot_feed_ids
