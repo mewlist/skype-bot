@@ -1,10 +1,4 @@
-#!/usr/bin/env ruby
-#coding:utf-8
-
-require File.expand_path(File.dirname(__FILE__)) + '/../config/boot.rb'
-require 'config'
-
-class GerritBot < Gerrit::Streamer
+class Skype::Bot::Bots::GerritBot < Skype::Bot::Gerrit::Streamer
   def send(*msgs)
     @bot ||= SkypeBot.new(Boot.config.room)
     @bot.send msgs.join("\n")
@@ -29,6 +23,3 @@ class GerritBot < Gerrit::Streamer
          "#{event.submitter}さんがあなたのコミットをマージしたよ！！ (clap) (clap) (clap) (clap) "
   end
 end
-
-GerritBot.new.listen_stream(Boot.config)
-

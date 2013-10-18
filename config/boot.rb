@@ -1,9 +1,7 @@
 #coding: utf-8
 $:.unshift(File.expand_path(File.dirname(__FILE__)) + '/../config')
 $:.unshift(File.expand_path(File.dirname(__FILE__)) + '/../lib')
-require 'skype_bot'
 require 'json'
-require 'gerrit/streamer'
 require 'hashie'
 
 class Boot

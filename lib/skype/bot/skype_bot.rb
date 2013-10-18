@@ -9,7 +9,7 @@ require 'skyper'
 # bot = SkypeBot.new('開発部屋')
 # bot.send('こんにちは僕はろぼっとです')
 #
-class SkypeBot
+class Skype::Bot::SkypeBot
   attr_reader :chat
   def initialize(room_name)
     Skyper::Chat.recent_chats.each do |c|
