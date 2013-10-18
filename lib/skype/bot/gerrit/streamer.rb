@@ -14,23 +14,25 @@ class Skype::Bot::Gerrit::Streamer
     puts "branch filter   : #{@config.branches.source}"
     puts "listening       : #{@config.user}@#{@config.host}:#{@config.port}"
 
-    loop do
-      begin
-        event = Gerrit::Event.new( JSON.parse(@io.gets) )
-        if event.project == @config.project && event.branch.match(@config.branches)
-          case event.type
-          when 'patchset-created'
-            patched event
-          when 'comment-added'
-            reviewed event
-          when 'change-merged'
-            merged event
+    Thread.new do
+      loop do
+        begin
+          event = Gerrit::Event.new( JSON.parse(@io.gets) )
+          if event.project == @config.project && event.branch.match(@config.branches)
+            case event.type
+            when 'patchset-created'
+              patched event
+            when 'comment-added'
+              reviewed event
+            when 'change-merged'
+              merged event
+            end
           end
+        rescue
+          @io = open
+        ensure
+          puts "#{event.type} @#{event.project}"
         end
-      rescue
-        @io = open
-      ensure
-        puts "#{event.type} @#{event.project}"
       end
     end
   end
