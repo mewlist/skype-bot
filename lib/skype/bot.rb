@@ -1,3 +1,5 @@
+require 'skyper'
+
 module Skype
   module Bot
     autoload :Bots,     'skype/bot/bots'

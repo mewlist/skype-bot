@@ -1,7 +1,7 @@
 class Skype::Bot::Bots::GerritBot < Skype::Bot::Gerrit::Streamer
   def send(*msgs)
     @bot ||= SkypeBot.new(Boot.config.room)
-    @bot.send msgs.join("\n")
+    @bot.chat msgs.join("\n")
   end
 
   def patched(event)

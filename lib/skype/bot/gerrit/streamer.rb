@@ -10,9 +10,9 @@ class Skype::Bot::Gerrit::Streamer
     @config = config
     @io = open
 
-    puts "project name    : #{@config.project}"
-    puts "branch filter   : #{@config.branches.source}"
-    puts "listening       : #{@config.user}@#{@config.host}:#{@config.port}"
+    puts "gerrit project name    : #{@config.project}"
+    puts "gerrit branch filter   : #{@config.branches.source}"
+    puts "gerrit listening       : #{@config.user}@#{@config.host}:#{@config.port}"
 
     Thread.new do
       loop do

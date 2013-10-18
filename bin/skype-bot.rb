@@ -7,6 +7,9 @@ require 'skype/bot'
 
 include Skype::Bot
 
-gerrit_bot_thread = Bots::GerritBot.new.listen_stream(Boot.config)
-
-gerrit_bot_thread.join
+[
+  Bots::GerritBot.new.listen_stream(Boot.config.gerrit),
+  Bots::FeedBot.new.listen(Boot.config.feed),
+].each do |thread|
+  thread.join
+end
