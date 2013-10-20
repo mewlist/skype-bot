@@ -1,15 +1,13 @@
 #coding: utf-8
 
-require 'skyper'
-
 #
 # 同じマシンで立ち上がっているSkypeクライアントから
 # room_name で指定されたトピックを持つ部屋へ発言することができる
 #
 # bot = SkypeBot.new('開発部屋')
-# bot.send('こんにちは僕はろぼっとです')
+# bot.chat('こんにちは僕はろぼっとです')
 #
-class SkypeBot
+class Skype::Bot::SkypeBot
   attr_reader :chat
   def initialize(room_name)
     Skyper::Chat.recent_chats.each do |c|
@@ -21,7 +19,7 @@ class SkypeBot
     raise '部屋が見つかりませんでした' unless @chat
   end
 
-  def send( message )
+  def chat( message )
     @chat.chat_message(message)
   end
 end

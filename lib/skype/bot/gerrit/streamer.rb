@@ -1,19 +1,20 @@
 #coding:utf-8
 
 require 'json'
-require 'gerrit/event'
+require 'skype/bot/gerrit/event'
 
-module Gerrit
-  class Streamer
-    attr_reader :config
+class Skype::Bot::Gerrit::Streamer
+  attr_reader :config
 
-    def listen_stream(config)
-      @config = config
-      @io = open
+  def listen_stream(config)
+    @config = config
+    @io = open
 
-      puts "project name    : #{@config.project}"
-      puts "branch filter   : #{@config.branches.source}"
-      puts "listening       : #{@config.user}@#{@config.host}:#{@config.port}"
+    puts "gerrit project name    : #{@config.project}"
+    puts "gerrit branch filter   : #{@config.branches.source}"
+    puts "gerrit listening       : #{@config.user}@#{@config.host}:#{@config.port}"
+
+    Thread.new do
       loop do
         begin
           event = Gerrit::Event.new( JSON.parse(@io.gets) )
@@ -34,19 +35,19 @@ module Gerrit
         end
       end
     end
+  end
 
-    def open
-      IO.popen("ssh -p #{@config.port} #{@config.user}@#{@config.host} gerrit stream-events")
-    end
+  def open
+    IO.popen("ssh -p #{@config.port} #{@config.user}@#{@config.host} gerrit stream-events")
+  end
 
-    # events
-    def patched(event)
-    end
+  # events
+  def patched(event)
+  end
 
-    def reviewed(event)
-    end
+  def reviewed(event)
+  end
 
-    def merged(event)
-    end
+  def merged(event)
   end
 end

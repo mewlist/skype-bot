@@ -1,8 +1,16 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    active_support (3.0.0)
+      activesupport (= 3.0.0)
+    activesupport (3.0.0)
+    feed-normalizer (1.5.2)
+      hpricot (>= 0.6)
+      simple-rss (>= 1.1)
     hashie (2.0.5)
+    hpricot (0.8.6)
     rb-appscript (0.6.1)
+    simple-rss (1.2.3)
     skyper (0.1.0)
       rb-appscript (>= 0.3.0)
 
@@ -10,5 +18,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_support
+  feed-normalizer
   hashie
   skyper

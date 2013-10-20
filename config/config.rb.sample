@@ -1,12 +1,19 @@
 #coding: utf-8
 
 require 'boot'
+require 'openssl'
+
+OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
 Boot.configure do |c|
-  c.user     = 'username of gerrit'
-  c.host     = 'gerrit.example.com'
-  c.port     = '29418'
-  c.project  = 'project name'
-  c.branches = /^RegExp For Filtering/
-  c.room     = 'Skype Room Topic Name'
+  c.skype!.room = 'Skype Room Topic Name'
+
+  c.gerrit!.user     = 'username of gerrit'
+  c.gerrit!.host     = 'gerrit.example.com'
+  c.gerrit!.port     = '29418'
+  c.gerrit!.project  = 'project name'
+  c.gerrit!.branches = /^RegExp For Filtering/
+
+  c.feed!.url          = 'feed url'
+  c.feed!.refresh_rate = 10 * 60
 end
