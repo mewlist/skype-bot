@@ -17,7 +17,7 @@ class Skype::Bot::Bots::FeedBot
         Thread.main.raise "cannot read the feed #{@config.url}" unless feed
         feed.entries.each do |item|
           unless ids.include? item.id
-            chat("#{item.title} #{item.url}")
+            chat "#{item.title} #{item.url}"
             ids.push item.id
           end
         end
