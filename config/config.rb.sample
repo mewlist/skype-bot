@@ -14,6 +14,14 @@ Boot.configure do |c|
   c.gerrit!.project  = 'project name'
   c.gerrit!.branches = /^RegExp For Filtering/
 
-  c.feed!.url          = 'feed url'
-  c.feed!.refresh_rate = 10 * 60
+  c.feeds = [
+    {
+      url: 'feed url',
+      refresh_rate: 10 * 60,
+    },
+    {
+      url: 'other feed url',
+      refresh_rate: 20 * 60,
+    },
+  ]
 end
