@@ -10,13 +10,14 @@ class Skype::Bot::Bots::FeedBot
     puts "feed refresh rate : #{@config.refresh_rate} sec."
 
     Thread.new do
-      ids = load_ids
-
       loop do
         feed = FeedNormalizer::FeedNormalizer.parse(feed_content)
+        Thread.main.raise "cannot read the feed #{@config.url}" unless feed
+
+        ids = load_ids
         feed.entries.each do |item|
           unless ids.include? item.id
-            chat("#{item.title} #{item.url}")
+            chat "#{item.title} #{item.url}"
             ids.push item.id
           end
         end
