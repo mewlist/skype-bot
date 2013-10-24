@@ -12,7 +12,6 @@ class Skype::Bot::Bots::FeedBot
     Thread.new do
       loop do
         feed = FeedNormalizer::FeedNormalizer.parse(feed_content)
-        Thread.main.raise "cannot read the feed #{@config.url}" unless feed
 
         ids = load_ids
         feed.entries.each do |item|
