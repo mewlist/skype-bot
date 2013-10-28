@@ -1,6 +1,9 @@
+require 'uri'
+require 'net/http'
 require 'open-uri'
 require 'yaml'
 require 'feed-normalizer'
+require 'active_support/core_ext/object'
 
 class Skype::Bot::Bots::FeedBot
   def listen(config)
@@ -12,6 +15,7 @@ class Skype::Bot::Bots::FeedBot
     Thread.new do
       loop do
         feed = FeedNormalizer::FeedNormalizer.parse(feed_content)
+        raise "The URL is invalid #{@config.url}" if feed.nil?
 
         ids = load_ids
         feed.entries.each do |item|
@@ -28,7 +32,8 @@ class Skype::Bot::Bots::FeedBot
   end
 
   def feed_content
-    open(@config.url).read
+    p read_url(@config.url)
+    read_url(@config.url)
   end
 
   def ids_filepath
@@ -50,5 +55,17 @@ class Skype::Bot::Bots::FeedBot
     @bot ||= Skype::Bot::SkypeBot.new(Boot.config.skype.room)
     puts msgs.join("\n")
     @bot.chat msgs.join("\n")
+  end
+
+  def read_url(url)
+    uri = URI.parse(url)
+    if uri.userinfo.present?
+      request = Net::HTTP::Get.new(uri.path)
+      account, password = *uri.userinfo.split(':')
+      request.basic_auth(account, password)
+      Net::HTTP.start(uri.host, uri.port).request(request).body
+    else
+      open(url).read
+    end
   end
 end
