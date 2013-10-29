@@ -32,7 +32,6 @@ class Skype::Bot::Bots::FeedBot
   end
 
   def feed_content
-    p read_url(@config.url)
     read_url(@config.url)
   end
 
