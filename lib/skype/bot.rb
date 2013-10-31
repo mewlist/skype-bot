@@ -1,4 +1,5 @@
 require 'skyper'
+require 'pry'
 
 module Skype
   module Bot
