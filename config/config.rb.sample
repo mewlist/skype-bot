@@ -24,4 +24,5 @@ Boot.configure do |c|
       refresh_rate: 20 * 60,
     },
   ]
+  c.steward!.redmine_tickets_feed_url = 'redmine tickets feed url'
 end

@@ -12,5 +12,6 @@ Thread.abort_on_exception = true
 Bots::GerritBot.new.listen_stream(Boot.config.gerrit)
 Bots::FeedsBot.new.listen(Boot.config.feeds)
 #Bots::AzmsBot.new.listen
+Bots::StewardBot.new.listen(Boot.config.steward)
 
 sleep
