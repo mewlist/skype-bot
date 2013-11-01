@@ -9,6 +9,8 @@ include Skype::Bot
 
 Thread.abort_on_exception = true
 
+Bots::HelloBot.hello
+
 Bots::GerritBot.new.listen_stream(Boot.config.gerrit)
 Bots::FeedsBot.new.listen(Boot.config.feeds)
 #Bots::AzmsBot.new.listen
