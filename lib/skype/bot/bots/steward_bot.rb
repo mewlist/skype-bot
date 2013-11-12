@@ -40,6 +40,9 @@ class Skype::Bot::Bots::StewardBot
 
     when /broken/
       "(devil) (devil) (devil) (devil) (devil)"
+
+    when /back to normal/
+      "(cool) <やったね"
     end
   end
 
