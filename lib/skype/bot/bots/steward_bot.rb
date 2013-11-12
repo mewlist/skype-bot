@@ -37,6 +37,9 @@ class Skype::Bot::Bots::StewardBot
         .select {|entry| entry.last_updated > 5.days.ago }
         .map {|entry| "#{entry.title} #{entry.url}" }
         .join("\n")
+
+    when /broken/
+      "(devil) (devil) (devil) (devil) (devil)"
     end
   end
 
