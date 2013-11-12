@@ -4,6 +4,7 @@ require 'open-uri'
 require 'yaml'
 require 'feed-normalizer'
 require 'active_support/core_ext/object'
+require 'pp'
 
 class Skype::Bot::Bots::FeedBot
   @mutex ||= Mutex.new
@@ -16,21 +17,26 @@ class Skype::Bot::Bots::FeedBot
 
     Thread.new do
       loop do
-        feed = FeedNormalizer::FeedNormalizer.parse(feed_content)
-        raise "The URL is invalid #{@config.url}" if feed.nil?
+        begin
+          feed = FeedNormalizer::FeedNormalizer.parse(feed_content)
+          raise "The URL is invalid #{@config.url}" if feed.nil?
 
-        self.class.mutex.synchronize do
-          ids = load_ids
-          feed.entries.each do |item|
-            unless ids.include? item.id
-              chat "#{item.title} #{item.url}"
-              ids.push item.id
+          self.class.mutex.synchronize do
+            ids = load_ids
+            feed.entries.each do |item|
+              unless ids.include? item.id
+                chat "#{item.title} #{item.url}"
+                ids.push item.id
+              end
             end
+            save_ids(ids)
           end
-          save_ids(ids)
-        end
 
-        sleep(@config.refresh_rate)
+        rescue => e
+          STDERR.puts e.backtrace.pretty_inspect
+        ensure
+          sleep(@config.refresh_rate)
+        end
       end
     end
   end
