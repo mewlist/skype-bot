@@ -10,6 +10,8 @@ include Skype::Bot
 Thread.abort_on_exception = true
 
 def start
+  kill_sub_threads
+
   Bots::HelloBot.hello
 
   Bots::GerritBot.new.listen_stream(Boot.config.gerrit)
@@ -18,6 +20,12 @@ def start
   Bots::StewardBot.new.listen(Boot.config.steward)
 
   sleep
+end
+
+def kill_sub_threads
+  Thread.list.select {|thread| thread != Thread.main }.each do |thread|
+    thread.kill
+  end
 end
 
 loop do
