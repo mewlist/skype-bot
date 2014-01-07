@@ -1,6 +1,7 @@
 #coding:utf-8
 
 require 'json'
+require 'active_support/core_ext'
 require 'skype/bot/gerrit/event'
 
 class Skype::Bot::Gerrit::Streamer
@@ -31,7 +32,7 @@ class Skype::Bot::Gerrit::Streamer
         rescue
           @io = open
         ensure
-          puts "#{event.type} @#{event.project}"
+          puts "#{event.type} @#{event.project}" if event.present?
         end
       end
     end

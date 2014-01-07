@@ -33,6 +33,7 @@ loop do
     start
   rescue => e
     tracelog = e.backtrace.join("\n")
+    tracelog = "#{e.message}\n#{e.backtrace.join("\n")}"
     STDERR.puts tracelog
     Bots::HelloBot.goodbye tracelog
     sleep 1
