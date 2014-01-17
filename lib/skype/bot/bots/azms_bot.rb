@@ -8,6 +8,7 @@ class Skype::Bot::Bots::AzmsBot
             chat "あざます!!!!!!!"
           end
         end
+        sleep 10
       end
     end
   end
