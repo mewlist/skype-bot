@@ -19,6 +19,7 @@ GEM
     hpricot (0.8.6)
     i18n (0.6.9)
     method_source (0.8.2)
+    parse-cron (0.1.3)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
@@ -44,6 +45,7 @@ DEPENDENCIES
   feed-normalizer
   hashie
   i18n
+  parse-cron
   pry
   pry-debugger
   pry-doc
