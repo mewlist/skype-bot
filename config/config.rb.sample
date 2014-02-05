@@ -25,4 +25,7 @@ Boot.configure do |c|
     },
   ]
   c.steward!.redmine_tickets_feed_url = 'redmine tickets feed url'
+  c.schedule!.schedules = [
+    { rule: "30 18 * * 1-5", message: "ごはんの時間です" }
+  ]
 end

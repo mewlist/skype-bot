@@ -14,10 +14,11 @@ def start
 
   Bots::HelloBot.hello
 
-  Bots::GerritBot.new.listen_stream(Boot.config.gerrit)
+#  Bots::GerritBot.new.listen_stream(Boot.config.gerrit)
   Bots::FeedsBot.new.listen(Boot.config.feeds)
-  Bots::AzmsBot.new.listen
-  Bots::StewardBot.new.listen(Boot.config.steward)
+#  Bots::AzmsBot.new.listen
+#  Bots::StewardBot.new.listen(Boot.config.steward)
+#  Bots::ScheduleBot.new.listen(Boot.config.schedule)
 
   sleep
 end
