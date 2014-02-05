@@ -56,7 +56,8 @@ class Skype::Bot::Bots::FeedBot
 
   def load_ids
     yaml = File.read(ids_filepath)
-    YAML::load(yaml)
+    ids = YAML::load(yaml)
+    if ids then ids else [] end
   rescue
     []
   end
