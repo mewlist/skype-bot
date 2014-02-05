@@ -33,6 +33,7 @@ class Skype::Bot::Bots::FeedBot
           end
 
         rescue => e
+          STDERR.puts e
           STDERR.puts e.backtrace.pretty_inspect
         ensure
           sleep(@config.refresh_rate)
