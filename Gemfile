@@ -7,6 +7,7 @@ gem 'skyper'
 gem 'feed-normalizer'
 gem 'active_support'
 gem 'i18n'
+gem 'parse-cron'
 
 group :development do
   gem 'pry'
