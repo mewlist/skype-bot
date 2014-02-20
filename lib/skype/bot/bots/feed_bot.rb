@@ -33,6 +33,7 @@ class Skype::Bot::Bots::FeedBot
           end
 
         rescue => e
+          STDERR.puts e
           STDERR.puts e.backtrace.pretty_inspect
         ensure
           sleep(@config.refresh_rate)
@@ -55,7 +56,8 @@ class Skype::Bot::Bots::FeedBot
 
   def load_ids
     yaml = File.read(ids_filepath)
-    YAML::load(yaml)
+    ids = YAML::load(yaml)
+    if ids then ids else [] end
   rescue
     []
   end
