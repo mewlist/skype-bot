@@ -4,6 +4,16 @@ class Skype::Bot::Bots::HelloBot
     hello_bot.bot.chat hello_bot.hello_message
   end
 
+  def self.notify_error(e)
+    hello_bot = self.new
+
+    tracelog = e.backtrace.join("\n")
+    tracelog = "#{hello_bot.error_message}\n#{e.message}\n#{e.backtrace.join("\n")}"
+    STDERR.puts tracelog
+
+    hello_bot.bot.chat tracelog
+  end
+
   def self.goodbye(death_throes_message)
     hello_bot = self.new
     hello_bot.bot.chat death_throes_message
@@ -32,5 +42,14 @@ EOS
 　￣￣￣￣￣￣￣
 EOS
     aa
+  end
+
+  def error_message
+    aa = <<EOS
+.　 　　(⌒⌒)
+　　　　 ii!i!i 　　ﾄﾞｯｶｰﾝ!
+　 　　ﾉ~~~＼
+,,,,,,,／｀･ω･´ ＼,,,,,,,,,,
+EOS
   end
 end
