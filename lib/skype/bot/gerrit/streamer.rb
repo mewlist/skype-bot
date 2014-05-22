@@ -29,7 +29,9 @@ class Skype::Bot::Gerrit::Streamer
               merged event
             end
           end
-        rescue
+        rescue => e
+          Bots::HelloBot.notify_error e
+
           @io = open
         ensure
           puts "#{event.type} @#{event.project}" if event.present?

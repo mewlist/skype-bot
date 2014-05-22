@@ -5,7 +5,7 @@ class Skype::Bot::Bots::StewardBot
   def listen(config)
     @config = config
 
-    puts "stward starts listening"
+    puts "steward starts listening"
     puts "redmine url: #{@config.redmine_tickets_feed_url}"
 
     Thread.new do
