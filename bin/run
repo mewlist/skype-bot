@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+
+@bot_path = File.join(File.dirname(__FILE__), "skype-bot.rb")
+
+def run_bot
+  p 'Running skype-bot'
+  @io = IO.popen("ruby #{@bot_path}")
+end
+
+def kill_bot
+  p 'Killing skype-bot'
+  Process.kill("INT", @io.pid)
+end
+
+def reboot
+  kill_bot
+  sleep 2
+  run_bot
+end
+
+
+last = Time.now
+run_bot
+
+
+loop do
+  now = Time.now
+
+  if last.hour == 8 and now.hour == 9
+    reboot
+  end
+
+  last = now
+end
