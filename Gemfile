@@ -8,6 +8,7 @@ gem 'feed-normalizer'
 gem 'activesupport'
 gem 'i18n'
 gem 'net-ssh'
+gem 'parse-cron'
 
 group :development do
   gem 'pry'
