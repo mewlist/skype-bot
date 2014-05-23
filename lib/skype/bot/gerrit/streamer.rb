@@ -3,13 +3,14 @@
 require 'json'
 require 'active_support/core_ext'
 require 'skype/bot/gerrit/event'
+require 'net/ssh'
 
 class Skype::Bot::Gerrit::Streamer
   attr_reader :config
 
   def listen_stream(config)
     @config = config
-    @io = open
+    open
 
     puts "gerrit project name    : #{@config.project}"
     puts "gerrit branch filter   : #{@config.branches.source}"
@@ -18,30 +19,42 @@ class Skype::Bot::Gerrit::Streamer
     Thread.new do
       loop do
         begin
-          event = Gerrit::Event.new( JSON.parse(@io.gets) )
-          if event.project == @config.project && event.branch.match(@config.branches)
-            case event.type
-            when 'patchset-created'
-              patched event
-            when 'comment-added'
-              reviewed event
-            when 'change-merged'
-              merged event
+          listen do |data|
+            event = Gerrit::Event.new( JSON.parse(data) )
+            if event.project == @config.project && event.branch.match(@config.branches)
+              case event.type
+              when 'patchset-created'
+                patched event
+              when 'comment-added'
+                reviewed event
+              when 'change-merged'
+                merged event
+              end
             end
+            puts "#{event.type} @#{event.project}" if event.present?
           end
         rescue => e
           Bots::HelloBot.notify_error e
 
-          @io = open
-        ensure
-          puts "#{event.type} @#{event.project}" if event.present?
+          close
+          open
         end
       end
     end
   end
 
   def open
-    IO.popen("ssh -p #{@config.port} #{@config.user}@#{@config.host} gerrit stream-events")
+    @io = Net::SSH.start(@config.host, @config.user, port: @config.port)
+  end
+
+  def close
+    @io.close
+  end
+
+  def listen
+    @io.exec!("gerrit stream-events") do |channel, stream, data|
+      yield data
+    end
   end
 
   # events

@@ -7,6 +7,7 @@ gem 'skyper'
 gem 'feed-normalizer'
 gem 'activesupport'
 gem 'i18n'
+gem 'net-ssh'
 
 group :development do
   gem 'pry'
