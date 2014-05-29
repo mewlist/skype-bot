@@ -18,12 +18,23 @@ def reboot
   run_bot
 end
 
+def print_bot_output
+  rs, ws = IO.select([@io], [], [], 2)
+  if rs and rs[0]
+    puts rs[0].gets
+  end
+end
+
 
 last = Time.now
 run_bot
 
 
 loop do
+  sleep 1
+
+  print_bot_output
+
   now = Time.now
 
   if last.hour == 8 and now.hour == 9
