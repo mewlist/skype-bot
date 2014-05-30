@@ -53,6 +53,11 @@ class Skype::Bot::Gerrit::Streamer
 
   def listen
     @io.exec!("gerrit stream-events") do |channel, stream, data|
+      if stream == :stderr
+        puts "ERROR ON GERRIT STREAM EVENTS"
+        puts data
+        raise "Gerrit stream events have an error"
+      end
       yield data
     end
   end
