@@ -56,7 +56,7 @@ class Skype::Bot::Gerrit::Streamer
       if stream == :stderr
         puts "ERROR ON GERRIT STREAM EVENTS"
         puts data
-        raise "Gerrit stream events have an error"
+        raise data
       end
       yield data
     end
