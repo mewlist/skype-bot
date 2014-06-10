@@ -24,12 +24,13 @@ class Skype::Bot::SkypeBot
   end
 
   def recent
-    @last_recent_fetched_time ||= Time.now
+    now = Time.now
+    @last_recent_fetched_time ||= now
     filtered = @chat.recent_chat_messages.select {|message|
       message.timestamp > @last_recent_fetched_time
     }
     unless filtered.empty?
-      @last_recent_fetched_time = Time.now
+      @last_recent_fetched_time = now
     end
     filtered
   end
